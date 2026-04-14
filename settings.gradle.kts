@@ -1,2 +1,6 @@
 rootProject.name = "maxIO"
-include("api")
+
+include("max-core")
+include("max-runTime")
+include("max-storage")
+include("max-api")
