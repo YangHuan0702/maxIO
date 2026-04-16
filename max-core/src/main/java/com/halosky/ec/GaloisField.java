@@ -6,7 +6,7 @@ package com.halosky.ec;
  * @author huan.yang
  * @className GaloisField
  * @date 2026/4/14
- * @description GF(2^8) 有限域
+ * @description GF(2 ^ 8) 有限域
  */
 public final class GaloisField {
 
@@ -18,7 +18,7 @@ public final class GaloisField {
 
     static {
         int x = 1;
-        for (int i =0; i < 255; i++) {
+        for (int i = 0; i < 255; i++) {
             EXP[i] = x;
             LOG[i] = i;
 
@@ -35,30 +35,38 @@ public final class GaloisField {
     }
 
 
-    public static int add(int a,int b) {
+    public static int add(int a, int b) {
         return a ^ b;
     }
 
-    public static int subtract(int a,int b) {
+    public static int subtract(int a, int b) {
         return a ^ b;
     }
 
-    public static int multiply(int a,int b) {
-        if(a == 0 || b == 0) return 0;
+    public static int multiply(int a, int b) {
+        if (a == 0 || b == 0) return 0;
         return EXP[LOG[a] + LOG[b]];
     }
 
-    public static int divide(int a,int b){
+    public static int divide(int a, int b) {
         if (b == 0) throw new ArithmeticException("Division by zero");
         if (a == 0) return 0;
         return EXP[LOG[a] - LOG[b] + 255];
     }
 
-    public static int inverse(int a){
-        if(a == 0) throw new ArithmeticException("Inverse by zero");
+    public static int inverse(int a) {
+        if (a == 0) throw new ArithmeticException("Inverse by zero");
         return EXP[255 - LOG[a]];
     }
 
-
+    public static int exp(int base, int power) {
+        if (power == 0) return 1;
+        if (base == 0) return 0;
+        int result = 1;
+        for (int i = 0; i < power; i++) {
+            result = multiply(result, base);
+        }
+        return result;
+    }
 
 }
